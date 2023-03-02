@@ -1,15 +1,11 @@
 import React, { useState, useRef } from "react";
+import { FaPlus } from "react-icons/fa";
 
 import "./SideBar.css";
 import logo from "../assets/spotify-white.png";
 import Modal from "./Modal";
-import { FaPlus } from "react-icons/fa";
 
-function SideBar({ activePlaylist, setActivePlaylist }) {
-  const [lists, setLists] = useState({
-    home: [],
-    favorites: [],
-  });
+function SideBar({ activePlaylist, setActivePlaylist, lists, setLists}) {
   const [modal, setModal] = useState(false);
   const playlistRef = useRef(null);
 
@@ -31,14 +27,15 @@ function SideBar({ activePlaylist, setActivePlaylist }) {
   return (
     <ul className="sidebar">
       <img src={logo} alt="spotify" className="logo" />
-      {playlists.map((list) => (
+      {playlists.map((playlist) => (
         <li
-          key={list}
-          className={list === activePlaylist ? "active" : ""}
-          onClick={() => setActivePlaylist(list)}
+          key={playlist}
+          className={activePlaylist === playlist ? "active" : ""}
+          onClick={() => setActivePlaylist(playlist)}
         >
-          {list}
+          {playlist}
         </li>
+
       ))}
       <li className="add-playlist" onClick={openModal}>
         <FaPlus style={{ marginRight: "5px" }} />

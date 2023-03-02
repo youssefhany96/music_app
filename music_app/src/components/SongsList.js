@@ -1,97 +1,108 @@
 import React, { useState, useEffect } from "react";
 
-import { FaSearch } from "react-icons/fa";
-import data from "../data/songs.json";
 import "./SongsList.css";
+import Modal from "./Modal";
+import Table from "./Table";
+import SearchBar from "./SearchBar";
 
-function SongsList({ title, songs, playlists }) {
+function SongsList({ title, playlists, setPlaylists }) {
   const [search, setSearch] = useState("");
-  const [filteredData, setFilteredData] = useState([]);
   const [selected, setSelected] = useState([]);
+  const [playlistSelect, setPlaylistSelect] = useState("");
+
+  const [filteredData, setFilteredData] = useState(playlists[title]);
 
   useEffect(() => {
     setFilteredData(
-      data.filter((item) =>
+      playlists[title].filter((item) =>
         item.title.toLowerCase().includes(search.toLowerCase())
       )
     );
-  }, [search]);
+  }, [search, title, playlists]);
 
-  console.log(title);
-  console.log(playlists);
-  console.log(playlists[title]);
-  // const songIds = playlists[title].map((song) => song.id);
+  const newPlaylists = Object.keys(playlists).filter(
+    (item) => !["home"].includes(item)
+  );
 
+  const removeFromPlaylist = (id) => {
+    const newPlaylists = playlists[title].filter((item) => item.id !== id);
+    setPlaylists({
+      ...playlists,
+      [title]: newPlaylists,
+    });
+  };
+
+  const addItem = (item) => {
+    if (selected.includes(item)) {
+      setSelected(selected.filter((id) => id !== item));
+    } else {
+      setSelected([...selected, item]);
+    }
+  };
+  
   return (
     <div className="songs-list">
       <h3 className="title">{title}</h3>
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <FaSearch
-          style={{
-            fontSize: "20px",
-            marginRight: "5px",
-            color: "grey",
-            marginTop: "5px",
-          }}
-        />
-        <input
-          type="text"
-          placeholder="Filter "
-          style={{
-            width: "100%",
-            height: "20px",
-            fontSize: "18px",
-            padding: "5px",
-            marginBottom: "10px",
-            outline: "none",
-            border: "none",
-            backgroundColor: "transparent",
-            color: "grey",
-          }}
-          onChange={(e) => {
-            setSearch(e.target.value);
-          }}
-        />
-      </div>
-      <table className="table">
-        <tr>
-          <th>Title</th>
-          <th>Artist</th>
-          <th>Album</th>
-          <th>Year</th>
-          <th>Duration</th>
-        </tr>
-        {filteredData.map((item) => (
-          <tr key={item.id}>
-            <td>
-              <button
-                style={{
-                  cursor: "pointer",
-                  border: "none",
-                  background: "none",
-                  color: "grey",
-                  fontSize: "20px",
-                  paddingRight: "10px",
-                }}
-                onClick={() => {
-                  if (selected.includes(item.id)) {
-                    setSelected(selected.filter((id) => id !== item.id));
-                  } else {
-                    setSelected([...selected, item.id]);
-                  }
-                }}
-              >
-                {selected.includes(item.id) ? "✓" : "+"}
-              </button>
-              {item.title}
-            </td>
-            <td>{item.artist}</td>
-            <td>{item.album}</td>
-            <td>{item.year}</td>
-            <td>{item.duration}</td>
-          </tr>
-        ))}
-      </table>
+      {filteredData.length === 0 ? (
+        <p className="no-songs">
+          No songs in this playlist
+        </p>
+      ) : (
+        <>
+          <SearchBar setSearch={setSearch} />
+          <Table
+            data={filteredData}
+            removeFromPlaylist={removeFromPlaylist}
+            addItem={addItem}
+          />
+        </>
+      )}
+      <Modal show={selected.length > 0} close={() => setSelected([])}>
+        <h3 className="modal-title">Add to playlist</h3>
+
+        {newPlaylists.length < 1 ? (
+          <p className="modal-text">No playlists created yet</p>
+        ) : (
+          <div className="modal-content">
+            <select
+              name="playlist"
+              id="playlist"
+              value={playlistSelect}
+              onChange={(e) => {
+                setPlaylistSelect(e.target.value);
+              }}
+              className="modal-select"
+            >
+              <option value="">select a playlist</option>
+              {newPlaylists.map((playlist) => (
+                <option
+                  key={playlist}
+                  value={playlist}
+                  disabled={playlist === title}
+                  style={{
+                    color: playlist === title ? "grey" : "black",
+                  }}
+                >
+                  {playlist}
+                </option>
+              ))}
+            </select>
+            <button
+              className="modal-btn"
+              onClick={() => {
+                playlists[playlistSelect] = [
+                  ...playlists[playlistSelect],
+                  ...selected,
+                ];
+                setSelected([]);
+                setPlaylistSelect("");
+              }}
+            >
+              Add
+            </button>
+          </div>
+        )}
+      </Modal>
     </div>
   );
 }

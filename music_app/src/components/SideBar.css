@@ -19,6 +19,11 @@
     margin-bottom: 20px;
 }
 
+.active {
+    border-left: 2px solid white;
+    padding-left: 18px;
+}
+
 li {
     list-style-type: none;
     margin: 0;
