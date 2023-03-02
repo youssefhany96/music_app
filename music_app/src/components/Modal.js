@@ -1,4 +1,7 @@
 import React from "react";
+import { FaTimes } from "react-icons/fa";
+
+import "./Modal.css";
 
 function Modal({ show, close, children }) {
   if (!show) {
@@ -7,7 +10,7 @@ function Modal({ show, close, children }) {
   return (
     <div className="modal">
       <div className="modal-content">
-        <i className="fas fa-times" onClick={close} />
+        <FaTimes className="close" onClick={close} />
         {children}
       </div>
     </div>

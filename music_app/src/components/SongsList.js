@@ -1,48 +1,30 @@
-import React, { useEffect, useState } from "react";
-import "./App.css";
-import data from "../data/songs.json";
+import React, { useState, useEffect } from "react";
+
 import { FaSearch } from "react-icons/fa";
+import data from "../data/songs.json";
+import "./SongsList.css";
 
-import SideBar from "./SideBar";
-import SongsList from "./SongsList";
+function SongsList({ title, songs, playlists }) {
+  const [search, setSearch] = useState("");
+  const [filteredData, setFilteredData] = useState([]);
+  const [selected, setSelected] = useState([]);
 
-function App() {
-  // const [filteredData, setFilteredData] = useState([]);
-  // const [selected, setSelected] = useState([]);
-  const [activePlaylist, setActivePlaylist] = useState("home");
-  const [lists, setLists] = useState({
-    home: [],
-    favorites: [],
-  });
+  useEffect(() => {
+    setFilteredData(
+      data.filter((item) =>
+        item.title.toLowerCase().includes(search.toLowerCase())
+      )
+    );
+  }, [search]);
 
-  // useEffect(() => {
-  //   setFilteredData(
-  //     data.filter((item) =>
-  //       item.title.toLowerCase().includes(search.toLowerCase())
-  //     )
-  //   );
-  // }, [search]);
+  console.log(title);
+  console.log(playlists);
+  console.log(playlists[title]);
+  // const songIds = playlists[title].map((song) => song.id);
 
   return (
-    <div className="App">
-      <SideBar
-        activePlaylist={activePlaylist}
-        setActivePlaylist={setActivePlaylist}
-      />
-      <div className="main">
-        <SongsList
-          title={activePlaylist}
-          // songs={filteredData}
-          playlists={lists}
-        />
-      </div>
-      {/* <h3>PLAYLIST</h3>
-      <h2>Driving</h2>
-      <p>
-        Showing {filteredData.length} of {data.length} songs
-      </p>
-      <button style={{ marginRight: "10px" }}>Add to Playlist</button>
-      <button>Play</button>
+    <div className="songs-list">
+      <h3 className="title">{title}</h3>
       <div style={{ display: "flex", justifyContent: "center" }}>
         <FaSearch
           style={{
@@ -64,6 +46,7 @@ function App() {
             outline: "none",
             border: "none",
             backgroundColor: "transparent",
+            color: "grey",
           }}
           onChange={(e) => {
             setSearch(e.target.value);
@@ -108,9 +91,9 @@ function App() {
             <td>{item.duration}</td>
           </tr>
         ))}
-      </table> */}
+      </table>
     </div>
   );
 }
 
-export default App;
+export default SongsList;
