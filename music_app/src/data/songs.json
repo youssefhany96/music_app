@@ -1,0 +1,90 @@
+[
+    {
+        "id": 1,
+        "title": "Shut Up and Dance",
+        "artist": "Walk the Moon",
+        "album": "Talking is Hard",
+        "year": "2014",
+        "duration": "3:36"
+    },
+    {
+        "id": 2,
+        "title": "The Less I Know the Better",
+        "artist": "Tame Impala",
+        "album": "Currents",
+        "year": "2015",
+        "duration": "3:53"
+    },
+    {
+        "id": 3,
+        "title": "Cough Syrup",
+        "artist": "Young the Giant",
+        "album": "Mind Over Matter",
+        "year": "2014",
+        "duration": "3:51"
+    },
+    {
+        "id": 4,
+        "title": "The Sound",
+        "artist": "The 1975",
+        "album": "I Like It When You Sleep, for You Are So Beautiful Yet So Unaware of It",
+        "year": "2016",
+        "duration": "3:51"
+    },
+    {
+        "id": 5,
+        "title": "Radioactive",
+        "artist": "Imagine Dragons",
+        "album": "Night Visions",
+        "year": "2012",
+        "duration": "3:22"
+    },
+    {
+        "id": 6,
+        "title": "Riptide",
+        "artist": "Vance Joy",
+        "album": "Dream Your Life Away",
+        "year": "2014",
+        "duration": "3:50"
+    },
+    {
+        "id": 7,
+        "title": "I Bet My Life",
+        "artist": "Imagine Dragons",
+        "album": "Smoke + Mirrors",
+        "year": "2015",
+        "duration": "3:51"
+    },
+    {
+        "id": 8,
+        "title": "The A Team",
+        "artist": "Ed Sheeran",
+        "album": "+",
+        "year": "2011",
+        "duration": "4:55"
+    },
+    {
+        "id": 9,
+        "title": "I'm Yours",
+        "artist": "Jason Mraz",
+        "album": "We Sing. We Dance. We Steal Things.",
+        "year": "2008",
+        "duration": "3:50"
+    },
+    {
+        "id": 10,
+        "title": "I Will Wait",
+        "artist": "Mumford & Sons",
+        "album": "Babel",
+        "year": "2012",
+        "duration": "4:31"
+    },
+    {
+        "id": 11,
+        "title": "I'm Not the Only One",
+        "artist": "Sam Smith",
+        "album": "In the Lonely Hour",
+        "year": "2014",
+        "duration": "3:54"
+    } 
+]
